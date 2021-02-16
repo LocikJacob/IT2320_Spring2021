@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8"/>
+   <style>
+   
+   </style>
+   <title>IT 2320 - Lab 2</title>
+   
+</head>
+<body>
+	<h2>Jacob Locik - IT 2320 - Lab 2</h2>
+	<pre>
+	<script>
+		"use strict";
+
+		// set up an array and initialize the first two values
+		var fibArray = [];
+		fibArray[0] = 0;
+		fibArray[1] = 1;
+
+		// declare a variable for the size of the squence
+		var fibNum = prompt("Please input a fibonaci size greater than 2: ");
+
+		// prompt user for how many
+
+		// check that fibNum >= 3
+		while (fibNum < 3) {
+			fibNum = prompt("Please input a fibonaci size greater than 2: ");
+		}
+		// write the values into the array
+		// You start at 2 because the first two values are already there
+		for (var i = 2; i < fibNum; i++) {
+			var nextVal = fibArray[i - 2] + fibArray[i - 1];
+			fibArray[i] = nextVal;
+		}
+
+		// read from the array and print balues to screen
+		// another for loop
+		for (var i = 0; i < fibArray.length; i++) {
+			document.write("\n" + fibArray[i]);
+		}
+
+		// calculate golden ratio and display it
+		//  last number / 2nd last number
+		var goldenRatio = fibArray[fibArray.length - 1] / fibArray[fibArray.length - 2];
+
+		document.writeln("\n" + "The Golden Ratio is: " + goldenRatio);
+
+</script>
+   </pre>
+
+</body>
+
+</html>
