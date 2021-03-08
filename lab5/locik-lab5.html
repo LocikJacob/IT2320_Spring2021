@@ -1,0 +1,97 @@
+<html>
+<head>
+<script>
+	"use strict";
+
+	var images = ["adams.jpg", "jackson.jpg", "jefferson.jpg", "madison.jpg", "washington.jpg"];
+	var timer;
+	var counter = 0;
+	var timerCounter = 0;
+	var imageCounter = 0;
+	var imageCache = [];
+
+	function $(id) {
+		return document.getElementById(id);
+	}
+
+	function updateCounter() {
+		counter++;
+
+		if (counter <= $("timerVal").value) {
+			//continue & update timerCount
+            $("timerCount").textContent = timerCounter--;
+		}
+		else {
+			//reset counter and change image
+            if ($("timerVal").value > 0 && $("timerVal").value <= 9999) {
+                counter = 0;
+                timerCounter = $("timerVal").value;
+                $("timerCount").textContent = timerCounter;
+
+                imageCounter++;
+                if (imageCounter < images.length) {
+                    //$("image").src = "images/" + images[imageCounter];
+					$("image").src = imageCache[imageCounter].src;
+                }
+                else {
+                    clearTimeout(timer);
+                }
+            }
+            else {
+				alert("Please choose a number between 1 and 9999");
+				clearTimeout(timer);
+            }
+        }
+	}
+
+	function resetTimer() {
+		//reset counter, reset image,  reset timers
+        if ($("timerVal").value > 0 && $("timerVal").value <= 9999) {
+            timerCounter = $("timerVal").value;
+			$("timerCount").textContent = timerCounter;
+			counter = 0;
+			imageCounter = 0;
+			$("image").src = imageCache[0].src;
+
+			clearTimeout(timer);
+			timer = setInterval(updateCounter, 1000);
+        }
+        else {
+            alert("Please choose a number between 1 and 9999");
+        }
+    }
+
+	window.onload = function () {
+		if ($("timerVal").value > 0 && $("timerVal").value <= 9999) {
+			timerCounter = $("timerVal").value;
+			$("timerCount").textContent = timerCounter;
+
+			
+			//preload images
+			var image;
+			for (var i = 0; i < images.length; i++) {
+				image = new Image();
+				image.src = "images/" + images[i];
+				imageCache[i] = image;
+			}
+			
+			timer = setInterval(updateCounter, 1000)
+		}
+		else {
+			alert("Please choose a number between 1 and 9999");
+		}
+
+        $("timerVal").onchange = resetTimer;
+
+    }
+</script>
+</head>
+<body>
+	<h2>Jacob Locik - IT 2320 - Lab 5</h2>
+	<p><center>
+	   Timer (seconds): <input type="text" id="timerVal" value="5" ><br/><br/>
+	   <img id ="image" src="images/adams.jpg"><br/><br/>
+	   <h2 id="timerCount" value ="5">5</h2>
+	</center></p>
+</body>
+</html>
