@@ -1,0 +1,35 @@
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<style>
+	.gif {
+		position:relative;
+	}
+</style>
+<script>
+
+	$(document).ready(function () {
+		$("#guy").hide();
+   });
+
+	function Anim() {
+		//fade in 1 second
+        $("#guy").fadeIn(1000);
+		//anim left to right over 3 seconds
+        $("#guy").animate({ left: ($(window).width() - 400)}, 3000);
+		//anim back over 3 seconds
+		$("#guy").animate({ left: 0 }, 3000);
+
+		//fade out over 1 second
+        $("#guy").fadeOut(1000);
+    }
+</script>
+</head>
+<body>
+	<h2>Jacob Locik - IT 2320 - Lab 7 Walking Man</h2>
+	<button type="button" onclick="Anim()">Start</button>
+	<br />
+	<img class="gif" id="guy" src="lab9-guy-walking.gif" />
+</body>
+</html>
