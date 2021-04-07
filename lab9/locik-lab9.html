@@ -1,0 +1,65 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script> -->
+    <script>
+        $(document).submit(function () {
+            //retrieve zip code, use it to create the url and redirect to new page
+            var zip = $("#search").val();
+            var url = "http://api.openweathermap.org/data/2.5/weather?zip=" + zip + ",us&appid=21bff10032c2de8e29ac48225a494f84&units=imperial"
+
+            $.ajax({
+                url: url,
+                method: "GET",
+                dataType: "json",
+                success: function (data) {
+                    $("#city").html(data.name);
+                    $("#currCondition").html(data.weather[0].description);
+                    $("#temp").html("Current Temp: " + Math.round(data.main.temp) + "F");
+                    $("#humidity").html("Humidity: " + data.main.humidity);
+                    $("#wind").html("Wind Speed : " + Math.round(data.wind.speed) + "mph at " + data.wind.deg + " degrees");
+                    $("#tempMinMax").html("Low: " + Math.round(data.main.temp_min) + "F  High: " + Math.round(data.main.temp_max) + "F");
+                }
+            });
+
+            return false;
+        }); // end submit
+
+    </script>
+
+
+
+</head>
+<body>
+<h2>Jacob Locik - IT 2320 - Lab 9</h2>
+
+    <form>
+        <div>
+            <input type="text" id="search" />
+            <button type="submit" id="searchBtn">Search</button>
+        </div>
+    </form>
+
+    
+    <div>
+        <a id="city"></a> <br>
+    </div>
+    <div>
+        <a id="currCondition"></a> <br>
+    </div>
+        <div>
+            <a id="temp"></a> <br>
+        </div>
+        <div>
+            <a id="wind"></a> <br>
+        </div>
+        <div>
+            <a id="humidity"></a> <br>
+        </div>
+        <div>
+            <a id="tempMinMax"></a> <br>
+        </div>
+
+</body>
+
+</html>
