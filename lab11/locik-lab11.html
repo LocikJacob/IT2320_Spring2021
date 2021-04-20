@@ -1,0 +1,77 @@
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+
+        function AddElement(array, element) {
+            if (element == "") {
+                return false;
+            }
+
+            array[array.length] = element;
+        }
+
+        function DisplayOuput(display, data) {
+            display.text(data);
+        }
+
+        function CheckContext(currentValue) {
+            return currentValue.indexOf(this) >= 0; //return true if substring is found
+        }
+
+        //returns text to be used in DisplayOuput
+        function SearchArray(searchContext, array) {
+            var index = array.findIndex(CheckContext, searchContext);
+
+            if (index == -1) {
+                return text = "No matches found";
+            }
+
+            var text = "index: " + index + ", element: " + array[index];
+            return text;
+        }
+
+        $(document).ready(function () {
+            var results = [];
+
+            //first input field => add dataEntered into array 
+            $("#dataEnteredBtn").on("click", function () {
+                AddElement(results, $("#dataEntered").val());
+                DisplayOuput($("#results"), results);
+            });
+
+            //second input field => search for first element to have a substring
+            //display index # and element found in ouput area
+            $("#searchBtn").on("click", function () {
+                var text = SearchArray($("#search").val(), results);
+                DisplayOuput($("#results"), text);
+            });
+
+            //sort button => sort and display in ouput area
+            $("#sort").on("click", function () {
+                results.sort();
+                DisplayOuput($("#results"), results);
+            });
+
+            //reverse button => reverese the order of the array and display in ouput
+            $("#reverse").on("click", function () {
+                results.reverse();
+                DisplayOuput($("#results"), results);
+            });
+        });
+  
+    </script>
+</head>
+<body>
+    <h2>Jacob Locik - IT 2320 - Lab 11</h2>
+Enter a string: <input type="text" id="dataEntered">
+<button type="button" id="dataEnteredBtn">Submit</button>
+<br /><br />
+Search for this: <input type="text" id="search">
+<button type="button" id="searchBtn">Search</button>
+<br /><br />
+<button type="button" id="sort">Sort the Array</button> <button type="button" id="reverse">Reverse the Array</button> 
+<br /><br />
+<strong>My Array Output</strong><br/>
+<span id="results"> *** </span>
+</body></html>
