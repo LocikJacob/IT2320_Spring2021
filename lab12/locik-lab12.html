@@ -1,0 +1,105 @@
+﻿<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+
+        function GreatestCommonDenominator( a ,b) {
+
+            if (a == 1 || b == 1) {
+                return 1;
+            }
+
+            if (a > b) { //for a = 154320, b = 4320 this only works with (a < b)???
+                if (b == 0) {
+                    return Math.abs(a);
+                }
+
+                var gcd = a % b;
+                var modulo = a % b;
+
+                while (modulo > 0) {
+                    gcd = modulo;
+                    modulo = a % modulo;
+                }
+                return gcd;
+            }
+            else { // b > a
+                if (a == 0) {
+                    return Math.abs(b);
+                }
+                var gcd = b % a;
+                var modulo = b % a;
+
+                while (modulo > 0) {
+                    gcd = modulo;
+                    modulo = b % modulo;
+                }
+                return gcd;
+            }
+        }
+
+        function PrimeList(a) {
+            var text = "no prime numbers";
+            var count = 2;
+            if (a >= 1) {
+                text = "1. 1 \n";
+                count = 1;
+            }
+            if (a >= 2) {
+                text += "2. 2 \n";
+                count++;
+            }
+
+            for (var i = 3; i < a; i += 2 ) {
+                var isPrime = true;
+                for (var k = 3; k < Math.ceil(Math.sqrt(a)); k++) {
+                    if (i != k) {
+                        if (i % k == 0) {
+                            isPrime = false;
+                            break;
+                        }
+                    }        
+                }
+
+                if (isPrime) {
+                    count++;
+                    text += count + ". " + i + "\n";
+                }
+            }
+
+
+            return text;
+        }
+
+        $(document).ready(function () {
+
+            $("#GCDBtn").on("click", function () {
+                $("#GCDResults").text(GreatestCommonDenominator($("#firstVal").val(), $("#secondVal").val()));
+            });
+
+            $("#primeBtn").on("click", function () {
+                $("#primeResults").text(PrimeList($("#primeVal").val()));
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <h2>Jacob Locik - IT 2320 - Lab 12</h2>
+    <h3>Search for the Greatest Common Denominator</h3>
+    First Value<input type="text" id="firstVal">
+    <br /><br />
+    Second Value<input type="text" id="secondVal">
+    <br /><br />
+    <button type="button" id="GCDBtn">Calculate</button>
+    <br /><br />
+    <span id="GCDResults">***</span>
+    <br /><br />
+    <h3>Search prime numbers</h3>
+    Search for prime numbers up to: <input type="text" id="primeVal">
+    <br /><br />
+    <button type="button" id="primeBtn">Calculate</button>
+    <br /><br />
+    <textarea id="primeResults">***</textarea>
+</body>
+</html>
